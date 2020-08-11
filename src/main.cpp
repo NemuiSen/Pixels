@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <Canvas.hpp>
 
-//#define main WinMain
+#define main WinMain
 
 struct sfCanvasManager: sf::Drawable
 {
@@ -37,6 +37,11 @@ struct sfCanvasManager: sf::Drawable
 		m_sprite.setPosition(pos);
 	}
 
+	void save()
+	{
+		m_texture.copyToImage().saveToFile("./save.png");
+	}
+
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const override
 	{
 		target.draw(m_sprite, states);
@@ -51,7 +56,7 @@ int main()
 {
 	sf::RenderWindow window({500, 500}, "uwu");
 	sf::Vector2u ws = window.getSize();
-	sfCanvasManager canvas(ws.x/2, ws.y/2, 15, 15);
+	sfCanvasManager canvas(ws.x/2, ws.y/2, 32, 32);
 
 	while (window.isOpen())
 	{
@@ -88,6 +93,8 @@ int main()
 
 			canvas.set_pixel(mp.x, mp.y, {255, 255, 255, 255});
 		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+			canvas.save();
 
 		window.clear({100, 100, 100, 255});
 		window.draw(canvas);
