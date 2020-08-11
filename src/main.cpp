@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <Canvas.hpp>
 
-#define main WinMain
+//#define main WinMain
 
 struct sfCanvasManager: sf::Drawable
 {
@@ -54,7 +54,7 @@ private:
 
 int main()
 {
-	sf::RenderWindow window({500, 500}, "uwu");
+	sf::RenderWindow window({500, 500}, "pixels");
 	sf::Vector2u ws = window.getSize();
 	sfCanvasManager canvas(ws.x/2, ws.y/2, 32, 32);
 

@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.7)
 
 set(CMAKE_CXX_STANDARD 20)
 set(EXECUTABLE_OUTPUT_PATH "../bin")
-set(CMAKE_EXE_LINKER_FLAGS "-Xlinker /subsystem:windows")
+#set(CMAKE_EXE_LINKER_FLAGS "-Xlinker /subsystem:windows")
 
 project(pixels)
 file(GLOB SRC "src/*.cpp")
