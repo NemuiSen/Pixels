@@ -7,7 +7,7 @@ Canvas::Canvas(int w, int h)
 	this->pixels.resize(w*h*4, 255);
 }
 
-void Canvas::set_pixel(int x, int y, const Color &c)
+void Canvas::set_pixel(int x, int y, const Vec4<uint8_t> &c)
 {
 	if (x >= 0 && x < this->w && y >= 0 && y < this->h)
 	{
