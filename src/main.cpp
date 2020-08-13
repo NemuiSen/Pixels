@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <Canvas.hpp>
 
-//#define main WinMain
+#define main WinMain
 
 struct sfCanvasManager: sf::Drawable
 {
@@ -23,7 +23,7 @@ struct sfCanvasManager: sf::Drawable
 		x -= m_sprite.getPosition().x - m_sprite.getOrigin().x * m_sprite.getScale().x;
 		y -= m_sprite.getPosition().y - m_sprite.getOrigin().y * m_sprite.getScale().y;
 
-		m_canvas.set_pixel(x/s.x, y/s.y, {c.r, c.g, c.b, c.a});
+		m_canvas.set_pixel(x/s.x, y/s.y, Color::blend_color(c, 0xff00ff7f));
 		m_texture.update(m_canvas.get_texture());
 	}
 
@@ -85,13 +85,13 @@ int main()
 		{
 			sf::Vector2i mp = sf::Mouse::getPosition(window);
 
-			canvas.set_pixel(mp.x, mp.y, 0x000000ff);
+			canvas.set_pixel(mp.x, mp.y, 0xff8000ff);
 		}
 		else if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right))
 		{
 			sf::Vector2i mp = sf::Mouse::getPosition(window);
 
-			canvas.set_pixel(mp.x, mp.y, 0xffffffff);
+			canvas.set_pixel(mp.x, mp.y, 0x5dc1b9ff);
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 			canvas.save();
