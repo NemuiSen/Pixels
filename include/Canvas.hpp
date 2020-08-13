@@ -2,40 +2,57 @@
 #include <stdint.h>
 #include <vector>
 
-template<typename T>
-struct Vec4
+struct Color
 {
-	T r, g, b, a;
-};
+	Color()
+	: r(0)
+	, g(0)
+	, b(0)
+	, a(0)
+	{}
 
-template<typename T>
-struct Vec3
-{
-	T r, g, b;
-	static Vec3 blend_color(Vec3 dst, const Vec4<T> &src)
+	Color(float R, float G, float B, float A = 0)
+	: r(R)
+	, g(G)
+	, b(B)
+	, a(A)
+	{}
+
+	void set_int(const uint32_t &c)
 	{
-		if (src.a > 0)
-		{
-			float alpha = 1/255*src.a;
-			dst.r = uint8_t(alpha * float(src.r * dst.r) + dst.r);
-			dst.g = uint8_t(alpha * float(src.g * dst.g) + dst.g);
-			dst.b = uint8_t(alpha * float(src.b * dst.b) + dst.b);
-			dst.a = 1;
-			return dst;
-		}
-
-		dst.r = 0;
-		dst.g = 0;
-		dst.b = 0;
-		dst.a = 0;
-		return dst;
+		r = (c >> 24) / 255;
+		g = (c >> 16) / 255;
+		b = (c >>  8) / 255;
+		a = (c >>  0) / 255;
 	}
+
+	uint32_t get_int()
+	{
+		return ((uint8_t)r*255 << 24)|
+			   ((uint8_t)g*255 << 16)|
+			   ((uint8_t)b*255 <<  8)|
+			   ((uint8_t)a*255 <<  0);
+	}
+
+	static Color blend_color(const Color &dst, const Color &src)
+	{
+		Color out;
+		out.a = src.a + dst.a * (1 - src.a);
+
+		out.r = (src.r * src.a + dst.r * dst.a * (1 - src.a)) / out.a;
+		out.g = (src.g * src.a + dst.g * dst.a * (1 - src.a)) / out.a;
+		out.b = (src.b * src.a + dst.b * dst.a * (1 - src.a)) / out.a;
+
+		return out;
+	}
+
+	float r, g, b, a;
 };
 
 struct Canvas
 {
 	Canvas(int w, int h);
-	void set_pixel(int x, int y, const Vec4<uint8_t> &c);
+	void set_pixel(int x, int y, const Color &c);
 	inline const uint8_t* get_texture() { return this->pixels.data(); }
 private:
 	inline int get_index(int x, int y) { return x + w * y; }

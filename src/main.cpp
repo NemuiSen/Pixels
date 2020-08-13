@@ -17,7 +17,7 @@ struct sfCanvasManager: sf::Drawable
 		this->set_pos({x, y});
 	}
 
-	void set_pixel(int x, int y, const sf::Color &c)
+	void set_pixel(int x, int y, const Color &c)
 	{
 		sf::Vector2f s = m_sprite.getScale();
 		x -= m_sprite.getPosition().x - m_sprite.getOrigin().x * m_sprite.getScale().x;
@@ -85,13 +85,13 @@ int main()
 		{
 			sf::Vector2i mp = sf::Mouse::getPosition(window);
 
-			canvas.set_pixel(mp.x, mp.y, {0, 0, 0, 255});
+			canvas.set_pixel(mp.x, mp.y, {0, 0, 0, 1});
 		}
 		else if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right))
 		{
 			sf::Vector2i mp = sf::Mouse::getPosition(window);
 
-			canvas.set_pixel(mp.x, mp.y, {255, 255, 255, 255});
+			canvas.set_pixel(mp.x, mp.y, {1, 1, 1, 1});
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 			canvas.save();
