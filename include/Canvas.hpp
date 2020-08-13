@@ -18,6 +18,8 @@ struct Color
 	, a(A)
 	{}
 
+	Color(const uint32_t &c) { this->set_int(c); }
+
 	void set_int(const uint32_t &c)
 	{
 		r = (c >> 24) / 255;
@@ -46,7 +48,10 @@ struct Color
 		return out;
 	}
 
-	float r, g, b, a;
+	float r;
+	float g;
+	float b;
+	float a;
 };
 
 struct Canvas

@@ -85,13 +85,13 @@ int main()
 		{
 			sf::Vector2i mp = sf::Mouse::getPosition(window);
 
-			canvas.set_pixel(mp.x, mp.y, {0, 0, 0, 1});
+			canvas.set_pixel(mp.x, mp.y, 0x000000ff);
 		}
 		else if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right))
 		{
 			sf::Vector2i mp = sf::Mouse::getPosition(window);
 
-			canvas.set_pixel(mp.x, mp.y, {1, 1, 1, 1});
+			canvas.set_pixel(mp.x, mp.y, 0xffffffff);
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 			canvas.save();
